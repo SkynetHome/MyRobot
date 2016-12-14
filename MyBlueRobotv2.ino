@@ -5,6 +5,7 @@
 #include <NewPing.h>
 #include <SoftwareSerial.h>
 #include <GOFi2cOLED.h>
+
 #define TRIGGER_PIN 1
 #define ECHO_PIN 0
 #define TRIGGER_PIN2 5
@@ -12,27 +13,32 @@
 #define TRIGGER_PIN3 7
 #define ECHO_PIN3 6
 #define MAX_DISTANCE 200
+
 // Create the motor shield object with the default I2C address
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 
-Adafruit_DCMotor *motor1 = AFMS.getMotor(1);
-Adafruit_DCMotor *motor2 = AFMS.getMotor(2);
-Adafruit_DCMotor *motor3 = AFMS.getMotor(3);
+Adafruit_DCMotor *motor1 = AFMS.getMotor(1);  //RIGHT MOTOR
+Adafruit_DCMotor *motor2 = AFMS.getMotor(2);  //LEFT MOTOR
+Adafruit_DCMotor *motor3 = AFMS.getMotor(3);  //Gripper Motor
 
-Servo servo1;
+Servo servo1;  //Tilt Servo
 
-GOFi2cOLED GOFoled;
+GOFi2cOLED GOFoled;   //OLED DISPLAY
 
-NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
-NewPing sonar2(TRIGGER_PIN2, ECHO_PIN2, MAX_DISTANCE);
-NewPing sonar3(TRIGGER_PIN3, ECHO_PIN3, MAX_DISTANCE);
-int distance;
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);  //CENTER PING SENSOR
+NewPing sonar2(TRIGGER_PIN2, ECHO_PIN2, MAX_DISTANCE);  //RIGHT PING SENSOR
+NewPing sonar3(TRIGGER_PIN3, ECHO_PIN3, MAX_DISTANCE);  //LEFT PING SENSOR
+
+
+
+int distance;  
 int distanceRight;
 int distanceLeft;
 int bluetoothTx = 9;
 int bluetoothRx = 8;
 const int ledPin = 12;
 int ledState = LOW;
+
 SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 
 void setup() {
@@ -192,45 +198,4 @@ void loop() {
     bluetooth.print(toSend);
     bluetooth.print("Bluetooth available! 2nd");
   }
-
-  //END NEW
-//  delay(100);
-//  distance = sonar.ping_cm();
-//  distanceRight = sonar2.ping_cm();
-//  distanceLeft = sonar3.ping_cm();
-//  Serial.print("Ping1: ");
-//  Serial.print(sonar.ping_cm());
-//  Serial.println("cm");
-//  Serial.print("Ping2: ");
-//  Serial.print(sonar2.ping_cm());
-//  Serial.println("cm");
-//  Serial.print("Ping3: ");
-//  Serial.print(sonar3.ping_cm());
-//  Serial.println("cm");
-////  if (((distance < 30) && (distance >= 1)) || ((distanceRight < 15) && (distance >= 1))) { /*if there's an obstacle 25 centimers, ahead, do the following: */
-//    Serial.println ("Close Obstacle detected!" );
-//    Serial.println ("Obstacle Details:");
-//    Serial.print ("Distance From Robot is " );
-//    Serial.print ( sonar.ping_cm());
-//    Serial.print ( " CM!");// print out the distance in centimeters.
-//
-//    Serial.println (" The obstacle is declared a threat due to close distance. ");
-//    Serial.println (" Turning !");
-//    motor1->run(FORWARD);  // Turn as long as there's an obstacle ahead.
-//    motor2->run (BACKWARD);
-//
-//  }
-//  else if (((distance < 30) && (distance >=1)) || ((distanceLeft < 14) && (distanceLeft >= 1))) {
-//      motor1->run(BACKWARD);
-//      motor2->run(FORWARD);  
-//    }
-//   
-//
-//  
-//  else {
-////    Serial.println ("No obstacle detected. going forward");
-//    delay (15);
-//    motor1->run(FORWARD); //if there's no obstacle ahead, Go Forward!
-//    motor2->run(FORWARD);
-//  }
 }
