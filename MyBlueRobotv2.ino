@@ -61,7 +61,7 @@ void setup() {
   GOFoled.clearDisplay();
   GOFoled.setTextSize(2);
   GOFoled.setCursor(0,0);
-  GOFoled.println("I WANT TO MAKE LOVE TO YOUR LITTLE PUSSY");
+  GOFoled.println("I LOVE YOU SARAH");
   GOFoled.display();
   
   Serial.begin(9600); // begin serial communitication
